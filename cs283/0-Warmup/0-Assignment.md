@@ -36,7 +36,7 @@ Please provide answers to these questions using markdown notation and place them
 
 3. Please provide a link to the repository you are using for this class.
 <br>
-[My Repository](https://github.com/racheltyprin/cs283)
+[My repository](https://github.com/racheltyprin/cs283)
 
 
 4. Briefly describe what you want to get out of this class.<br>
