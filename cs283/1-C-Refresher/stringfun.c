@@ -15,7 +15,7 @@ int  count_words(char *, int, int);
 //add additional prototypes here
 void reverse_string(char *, int str_len);
 void word_print(char *, int str_len);
-int string_replace(char *, int len, char *, char *);
+int replace_string(char *, int len, char *, char *);
 
 
 int setup_buff(char *buff, char *user_str, int len){
@@ -84,7 +84,7 @@ int count_words(char *buff, int len, int str_len){
 }
 
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
-int string_replace(char *buff, int len, char *target, char *replacement) {
+int replace_string(char *buff, int len, char *target, char *replacement) {
     char *match = NULL;
     int target_len = 0, replacement_len = 0;
     char *temp = buff;
@@ -239,6 +239,18 @@ int main(int argc, char *argv[]){
             break;
         case 'w':
             word_print(buff, user_str_len);
+            break;
+        case 'x':
+            if (argc != 5) {
+                printf("Error: -x flag requires a target and replacement string.\n");
+                free(buff);
+                exit(1);
+            }
+            rc = replace_string(buff, BUFFER_SZ, argv[3], argv[4]);
+            if (rc < 0) {
+                free(buff);
+                exit(2);
+            }
             break;
         //TODO:  #5 Implement the other cases for 'r' and 'w' by extending
         //       the case statement options
