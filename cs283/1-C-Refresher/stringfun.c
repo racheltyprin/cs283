@@ -15,6 +15,8 @@ int  count_words(char *, int, int);
 //add additional prototypes here
 void reverse_string(char *, int str_len);
 void word_print(char *, int str_len);
+int string_replace(char *, int len, char *, char *);
+
 
 int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
@@ -82,6 +84,55 @@ int count_words(char *buff, int len, int str_len){
 }
 
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
+int string_replace(char *buff, int len, char *target, char *replacement) {
+    char *match = NULL;
+    int target_len = 0, replacement_len = 0;
+    char *temp = buff;
+
+    while (target[target_len] != '\0') target_len++;
+    while (replacement[replacement_len] != '\0') replacement_len++;
+
+    // Find occurrence of target in buff
+    while (*temp != '\0' && temp < buff + len) {
+        if (strncmp(temp, target, target_len) == 0) {
+            match = temp;
+            break;
+        }
+        temp++;
+    }
+
+    if (!match) {
+        printf("Target string not found.\n");
+        return -1;
+    }
+
+    int extra_chars = replacement_len - target_len;
+    if ((buff + len - match) < replacement_len) {
+        printf("Error: Replacement is too long\n");
+        return -2; 
+    }
+
+    if (extra_chars > 0) {
+        char *end = buff + len - 1;
+        char *src = buff + len - extra_chars - 1;
+        while (src >= match + target_len) {
+            *end = *src;
+            end--;
+            src--;
+        }
+    }
+    for (int i = 0; i < replacement_len; i++) {
+        match[i] = replacement[i];
+    }
+
+    printf("Modified String: ");
+    for (char *p = buff; p < buff + len && *p != '.'; p++) {
+        putchar(*p);
+    }
+    putchar('\n');
+
+    return 0;
+}
 
 void word_print(char *buff, int str_len) {
     int word_num = 1;
